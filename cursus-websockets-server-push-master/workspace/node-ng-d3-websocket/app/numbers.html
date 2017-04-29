@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <title>Number cruncher</title>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <!-- jQuery -->
+    <script src="js/lib/jquery-2.0.3.min.js"></script>
+    <!-- AngularJS -->
+    <script src="js/lib/angular-1.2.7.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/lib/bootstrap.min.js"></script>
+    <!-- D3 and AngularJS D3 support -->
+    <script src="js/lib/d3.core.js"></script>
+    <script src="js/d3.directives.js"></script>
+    <!-- App code -->
+    <script src="js/numbers.app.js"></script>
+    <script src="js/numbers.directives.js"></script>
+    <!-- Styles -->
+    <link href="css/lib/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/main.css" rel="stylesheet"/>
+</head>
+<body>
+<div ng-app="numbers.app" ng-controller="NumbersCtrl">
+    <div>
+        <input type="text" ng-model="expression" size="80" placeholder="{&quot;repeat&quot;:25,&quot;delay&quot;:1000,&quot;max&quot;:40,&quot;size&quot;:20}"/>
+        <button ng-click="executeExpression()" class="btn-primary">Execute</button>
+        <button ng-click="stop()" ng-show="running" class="btn-danger">Stop</button>
+    </div>
+    <tabs>
+        <pane title="Raw">
+            <h3>Raw data</h3>
+            <pre><code>{{numbers}}</code></pre>
+        </pane>
+        <pane title="Canvas">
+            <h3>Visual representation</h3>
+            <barchart2d data="{{numbers}}"/>
+        </pane>
+    </tabs>
+</div>
+</body>
+</html>

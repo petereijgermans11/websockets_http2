@@ -1,0 +1,12 @@
+{
+ "getUserMedia": [
+  {
+   "audio": "",
+   "origin": "https://apprtc.appspot.com",
+   "pid": 7352,
+   "rid": 9,
+   "video": ""
+  }
+ ],
+ "PeerConnections": {}
+}

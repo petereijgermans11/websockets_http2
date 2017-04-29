@@ -1,0 +1,290 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>nl.ordina.jtech</groupId>
+	<artifactId>jersey-jaxrs-sse</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<java.version>1.7</java.version>
+		<java.signature.version>java17</java.signature.version>
+
+		<jersey.version>2.8</jersey.version>
+		<slf4j.version>1.7.5</slf4j.version>
+		<logback.version>1.0.9</logback.version>
+		<junit.version>4.10</junit.version>
+		<jetty.version>9.1.0.v20131115</jetty.version>
+		<commons-codec.version>1.8</commons-codec.version>
+		<spring.version>4.0.0.RELEASE</spring.version>
+		<freemarker.version>2.3.20</freemarker.version>
+		<cglib.version>2.2.2</cglib.version>
+		<aspectj.version>1.7.0</aspectj.version>
+
+		<aspectj-maven-plugin.version>1.2</aspectj-maven-plugin.version>
+
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+	</properties>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<inherited>true</inherited>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin> <!-- to enable logback in Jetty plugin - <systemProperties/> there does not work --> 
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>set-system-properties</goal>
+						</goals>
+						<configuration>
+							<properties>
+								<property>
+									<name>logback.configurationFile</name>
+									<value>./src/main/resources/logback.xml</value>
+								</property>
+							</properties>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin> 
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+  			<version>${jetty.version}</version>
+				<configuration>
+     				<scanIntervalSeconds>5</scanIntervalSeconds>
+					<webApp> <!-- <webAppConfig/> works for jettyEnvXml but not for contextPath?! -->
+						<contextPath>/${project.artifactId}</contextPath>
+					</webApp>
+ 					<jettyXml>${project.build.outputDirectory}/jetty/jetty.xml,${project.build.outputDirectory}/jetty/jetty-servlet.xml,${project.build.outputDirectory}/jetty/jetty-http.xml</jettyXml>
+ 				</configuration>
+				<dependencies>
+					<dependency> <!-- for Jetty logging -->
+						<groupId>ch.qos.logback</groupId>
+						<artifactId>logback-classic</artifactId>
+						<version>${logback.version}</version>
+					</dependency>
+				</dependencies>
+   			</plugin>
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.17</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+            </plugin>
+        </plugins>
+		
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											properties-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.0-alpha-2,)
+										</versionRange>
+										<goals>
+											<goal>
+												set-system-properties
+											</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Jersey bill of materials -->
+			<dependency>
+				<groupId>org.glassfish.jersey</groupId>
+				<artifactId>jersey-bom</artifactId>
+				<version>${jersey.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			
+			<!-- generic libs -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>15.0</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>1.3.1</version>
+			</dependency>
+
+			<!-- test -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+			</dependency>
+
+			<!-- logging -->
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>log4j-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency> <!-- Servlet 3.0 spec -->
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.servlet</artifactId>
+			<version>3.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- logging -->
+		<dependency> <!-- Fixes "Class path contains multiple SLF4J bindings: apache-tomcat-7.0.54/lib/logback-classic-1.0.9.jar vs. html5-spa-showcase/WEB-INF/lib/logback-classic-1.0.9.jar"
+			=> Added to Jetty (this pom) & Tomcat (manually) global classpath 
+			TODO check glassfish -->
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency> <!-- must be provided at the same time to prevent
+		    java.lang.LinkageError: loader constraint violation resolving method "org.slf4j.impl.StaticLoggerBinder.getLoggerFactory()Lorg.slf4j.ILoggerFactory;" org.apache.catalina.loader.WebappClassLoader#org.slf4j.LoggerFactory<slf4j-api> and org.apache.catalina.loader.StandardClassLoader#org.slf4j.impl.StaticLoggerBinder<logback-classic>
+		     -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+             <scope>provided</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<!-- servlet 2.0 - precludes the use of async!! 
+			 	<artifactId>jersey-container-servlet-core</artifactId>
+			 -->	
+			<!-- servlet 3.x compatible -->
+			<artifactId>jersey-container-servlet</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>2.2.3</version>
+		</dependency>
+ 		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-sse</artifactId>
+		</dependency>
+
+		<dependency>  <!-- trying to get Jersey logging into logback -->
+			<groupId>org.slf4j</groupId>
+			<version>${slf4j.version}</version>
+			<artifactId>jul-to-slf4j</artifactId>
+		</dependency>
+		
+		<dependency>  <!-- for 'easy' JUL init & autowiring -->
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency> <!-- Strings.<..>, Optional<T> etc. -->
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
+
+		<!-- +++++++++++ -->
+		<!-- test dependencies -->
+		<!-- +++++++++++ -->
+
+		<!-- start Jetty for Integration Test -->
+		<dependency>  <!-- Server -->
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>${jetty.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency> <!-- WebAppContext -->
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-webapp</artifactId>
+			<version>${jetty.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency> <!-- HTTP client -->
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+	</dependencies>
+</project>

@@ -1,0 +1,24 @@
+HTTP/2
+
+Binary Framing: transparent
+Stream Multiplexing: transparent
+Prioritisation: ?
+Server Push: exposed to applications
+Upgrade from HTTP 1.1: transparent?
+
+is binary, instead of textual
+is fully multiplexed, instead of ordered and blocking
+can therefore use one connection for parallelism
+uses header compression to reduce overhead
+allows servers to “push” responses proactively into client cache
+
+HTTP/1.x has a problem called “head-of-line blocking,” where effectively only one request can be outstanding on a connection at a time.
+
+page: 80 assets & each request has 1400B headers: 7-8 round trips to get the headers out “on the wire" because of TCP’s Slow Start mechanism
+
+HPACK iso GZ: CRIME attack
+
+Does HTTP/2 require encryption? No. After extensive discussion, the Working Group did not have consensus to require the use of encryption (e.g., TLS) for the new protocol. However, some implementations have stated that they will only support HTTP/2 when it is used over an encrypted connection
+
+HTTP/2 over TLS: h2
+HTTP/2 over TCP: h2c

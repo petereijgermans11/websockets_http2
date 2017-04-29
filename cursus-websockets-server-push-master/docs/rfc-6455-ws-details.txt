@@ -1,0 +1,50 @@
+http://tools.ietf.org/pdf/rfc6455.pdf 
+71p.
+Fette & Melnikov 
+dec-2011
+
+p12+ = heavy
+
+RFC 6202 "Known Issues and Best Practices for the Use of Long Polling and Streaming in Bidirectional HTTP"
+
+Sec-WebSocket-Version: 13
+
+before: multiple TCP (HTTP) connections
+
+6 frame types:
+ %x0 continuation frame
+ %x1 text frame (utf-8)
+ %x2 binary frame
+ [control frames]
+ %x8 connection close; optional closed code (1000-1015 + 2 extra ranges) + text
+ %x9 ping: moet je echo'en met content. voor keepalive of alive-check
+  => maintain local network NAT mappings, to detect failed connections, or to display latency metrics
+ %xA pong: mag unsolicited; heartbeat
+
+ 1000 | Normal Closure
+| 1001 | Going Away
+| 1002 | Protocol error
+| 1003 | Unsupported Data
+| 1004 | ---Reserved----
+| 1005 | No Status Rcvd - for use in applications expecting a status code to indicate that no status code was actually present
+| 1006 | Abnormal Closure
+| 1007 | Invalid frame payload data
+| 1008 | Policy Violation
+| 1009 | Message Too Big
+| 1010 | Mandatory Ext.
+| 1011 | Internal Server Error
+| 1015 | TLS handshake Error
+
+frame kan opgesplitst/samengevoegd worden!
+
+extensions support by the client (|Sec-WebSocket-Extensions|)
+
+subprotocol selector (|Sec-WebSocket-Protocol|)
+(application-level protocols layered over the WebSocket Protocol) are acceptable to the client.
+The server selects one or none of the acceptable protocols and echoes
+that value in its handshake to indicate that it has selected that protocol.
+
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+ concatenate with "258EAFA5-E914-47DA-95CA-C5AB0DC85B11" & SHA-1 / base64 => Sec-WebSocket-Accept
+
+mask beschermt tegen o.a. cache poisoning attack

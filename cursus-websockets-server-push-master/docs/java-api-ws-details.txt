@@ -1,0 +1,13 @@
+javax.websocket.* / javax.websocket.server.*
+
+RemoteEndpoint.Async: Future of SendHandler 
+ onResult(SendResult) => getException() / isOK()  
+ 
+RemoteEndpoint.Basic 
+
+RemoteEndpoint.sendPing/Pong(ByteBuffer)
+
+Session.close(CloseReason)
+ .getUserPrincipal() 
+ .getUserProperties()  
+ etc

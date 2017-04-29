@@ -1,0 +1,114 @@
+glassfish spdy
+
+https://grizzly.java.net/spdy.html
+
+==
+
+http://www.smartjava.org/content/how-use-spdy-jetty
+
+test ook deze via experia router op spdycheck.org
+
+spdy-core: depended?
+spdy-jetty: client lib
+spdy-jetty-http: server Connector
+spdy-jetty-http-webapp: example
+start the JVM with the NPN boot jar in the boot classpath
+java -Xbootclasspath/p:<path_to_npn_boot_jar> ...
+ org.mortbay.jetty.npn:npn-boot
+ http://wiki.eclipse.org/Jetty/Feature/NPN: onderaan versienummers. Alleen OpenJDK7!
+
+jetty-spdy.xml:
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+
+    <New id="sslContextFactory" class="org.eclipse.jetty.util.ssl.SslContextFactory">
+        <Set name="keyStorePath">your_keystore.jks</Set>
+        <Set name="keyStorePassword">storepwd</Set>
+        <Set name="includeProtocols">TLSv1</Set>
+    </New>
+
+    <Call name="addConnector">
+        <Arg>
+            <New class="org.eclipse.jetty.spdy.http.HTTPSPDYServerConnector">
+                <Arg>
+                    <Ref id="sslContextFactory" />
+                </Arg>
+                <Set name="Port">8443</Set>
+            </New>
+        </Arg>
+    </Call>
+</Configure>
+
+client:
+// Start a SPDYClient factory shared among all SPDYClient instances
+SPDYClient.Factory clientFactory = new SPDYClient.Factory();
+clientFactory.start();
+
+// Create one SPDYClient instance
+SPDYClient client = clientFactory.newSPDYClient(SPDY.V2);
+
+// Obtain a Session instance to send data to the server that listens on port 8181
+Session session = client.connect(new InetSocketAddress("localhost", 8181), null).get(5, TimeUnit.SECONDS);
+
+// Sends SYN_STREAM and DATA to the server
+Stream stream = session.syn(new SynInfo(false), null).get(5, TimeUnit.SECONDS);
+stream.data(new StringDataInfo("Hello, World", true));
+
+To listen to SPDY frames the server sends, you need to pass a StreamFrameListener upon stream creation:
+
+StreamFrameListener streamListener = new StreamFrameListener.Adapter()
+{
+    public void onReply(Stream stream, ReplyInfo replyInfo)
+    {
+        // Reply received from server, send DATA to the server
+        stream.data(new StringDataInfo("Hello, World", true));
+    }
+
+    public void onData(Stream stream, DataInfo dataInfo)
+    {
+        // Data received from server
+        String content = dataInfo.asString("UTF-8", true);
+        System.err.printf("SPDY content: %s%n", content);
+    }
+};
+
+// Sends SYN_STREAM to the server, adding headers
+Headers headers = new Headers();
+headers.put("url", "/echo");
+Stream stream = session.syn(new SynInfo(headers, false), null).get(5, TimeUnit.SECONDS);
+
+server:
+// The application code that handles incoming SYN_STREAMS
+ServerSessionFrameListener application = new ServerSessionFrameListener.Adapter()
+{
+    public StreamFrameListener onSyn(Stream stream, SynInfo synInfo)
+    {
+        // Reply upon receiving a SYN_STREAM
+        stream.reply(new ReplyInfo(false));
+
+        // Inspect the headers
+        Headers headers = synInfo.getHeaders();
+        if ("/echo".equals(headers.get("url").value()))
+        {
+            return new StreamFrameListener.Adapter()
+            {
+                public void onData(Stream stream, DataInfo dataInfo)
+                {
+                    // Upon receiving hello data from the client, echo it back
+                    String clientData = dataInfo.asString("UTF-8", true);
+                    stream.data(new StringDataInfo("Echo for " + clientData, true));
+                }
+            };
+        }
+        return null;
+    }
+};
+
+// Wire up and start the connector
+org.eclipse.jetty.server.Server server = new Server();
+server.addConnector(new SPDYServerConnector(application));
+server.start();
+
+=== EOF

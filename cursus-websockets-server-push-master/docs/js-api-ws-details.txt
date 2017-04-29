@@ -1,0 +1,23 @@
+websocket API (wsapi) http://www.w3.org/TR/websockets
+ Ian Hickson, sep-2012
+
+legt API vast, maar ook hoe een browser die moet implementeren
+
+  readonly unsigned long bufferedAmount;
+  readonly DOMString extensions;
+  readonly DOMString protocol;
+  void send(DOMString data);
+  void send(Blob data);
+  void send(ArrayBuffer data);
+  void send(ArrayBufferView data);
+
+binaryType ="blob"|"arraybuffer
+
+ hint: Blob safe to spool to disk; Arraybuffer more efficient to keep in mem
+
+veel security-related opmerkingen
+
+CloseEvent
+  boolean wasClean;
+  unsigned short code;
+  DOMString reason;

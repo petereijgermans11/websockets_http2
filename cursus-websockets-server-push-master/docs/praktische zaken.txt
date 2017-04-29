@@ -1,0 +1,259 @@
+apr-2016:
+
+15 man:
+Edwin Derks
+Martin van der Toorn
+Jacco Houtekamer
+Ulrich Radermacher
+Eric Vriends
+Peter Eijgermans
+Sergio Taytelbaum
+Erwin Cavas
+Teije van Sloten
+Mendelt Luinenburg
+Henk van Overbeek
+Alan Slingerland
+Dirk Luijk
+Alex Kuyper
+Maarten Veldink
+-Jacco Denneboom-
+
+Edwin.Derks@ordina.nl;Martin.van.der.Toorn@ordina.nl;Jacco.Houtekamer@ordina.nl;Ulrich.Radermacher@ordina.nl;Eric.Vriends@ordina.nl;Peter.Eijgermans@ordina.nl;Sergio.Taytelbaum@ordina.nl;Jacco.Denneboom@ordina.nl;Erwin.Cavas@ordina.nl;Teije.van.Sloten@ordina.nl;Mendelt.Luinenburg@ordina.nl;Henk.van.Overbeek@ordina.nl;Alan.Slingerland@ordina.nl;Dirk.Luijk@ordina.nl;Alex.Kuyper@ordina.nl;Maarten.Veldink@ordina.nl
+
+Edwin *
+Martin
+Ulrich * ziek?
+Eric
+Peter 1e dag niet
+Sergio * 1e dag tot 18u
+Jacco *
+Erwin
+Teije *
+Mendelt *
+Henk
+Alan
+Dirk *
+Alex *
+Maarten 1e dag niet
+
+A-G == 7; 6 groepen van 2 + 1 van 3 == 15 man
+
+==
+
+Beste cursisten,
+
+Over een week is het al zover! De eerste avond van de 2e cursussessie van de cursus HTML5, Websockets & server push gaat van start. Hierbij ontvang je alvast een sneak preview van de sheets en het cookbook.
+
+De cursus staat gepland voor 3 (drie) avonden. De cursisten - jullie dus - staan aan het roer! Het is straks aan jullie om, Scrum style, middels prioritering aan te geven welke onderwerpen in welke volgorde behandeld gaan worden, hoe diepgaand en op welke manier.
+
+Dit jaar voor het eerst staat al het materiaal op een private github repo van het Ordina account. Laat me aub je github id weten, dan maak ik je reader. Je haalt al het materiaal binnen met:
+ git clone https://github.com/OrdinaNederland/cursus-websockets-server-push.git
+
+Installeer alvast de volgende software op je laptop:
+JDK8
+Git
+Maven
+IDE naar keuze - Eclipse, IntelliJ of NetBeans; als je er maar zelf goed mee overweg kan
+NodeJs 5+
+Glassfish 4.1
+Wireshark
+Curl
+Fiddler
+Firefox en/of Chrome
+
+Voor details, download URLs etc: zie het cookbook (git repo: docs\WebSockets etc. hands-on lab cookbook.docx). Loop je vast, laat me het dan weten!
+NB Ikzelf werk op Windows 7 (eigen image; geen Ordina laptop) met Firefox, cygwin en IntelliJ. De workshop software werkt ook op andere combinaties. Bij de eerste cursussessie is 'YMMV' echter wel bewaarheid gebleken. Met name Linux en NetBeans gaven wat probleempjes. Neem het gerust mee; neem dan wel wat zelfredzaamheid mee!
+
+Mocht je onverhoopt niet kunnen, laat het dan aub per ommegaande weten aan Monique of aan mij, dan kunnen we iemand van de wachtlijst jouw plek aanbieden!
+
+De eerste avond is op dinsdag 5 april, 16:00-21:00u, A12.5, Ordina Nieuwegein.
+
+Je bent om 15:00u al welkom bij de koffieautomaat op A12 voor een 'install fest' mocht je daar nog niet eerder aan toegekomen zijn.
+
+==
+
+voorbereiding:
+ & > Monique: lijst cursisten
+ ~> mail cursisten 2 weken (!) vantevoren URLs van te installeren software + github URL + cookbook + PDF sheets
+ &> maak cursisten reader in github
+ &> mail cursisten 1 week vantevoren: kom zo nodig een uurtje eerder voor een install fest
+ > print materialen:
+   - dit lijstje
+   - sheets p156+
+   - A-G sheets  
+   - Dartborden (2x)
+   - Onderwerpen A4, in stukken geknipt (1 set per deelnemer)
+ > git repo op USB stick
+   > workspace *met TODO's* uitpakken
+   > sheets & cookbook *als PDF*
+ !> Monique: kamer al om 15u laten reserveren
+
+mee:
+ > wireless presenter
+ > Limes incl. adapter & muis
+ > schaar & plakband
+ > (badkamer)klokje
+ 
+ochtend:
+ > dikke stiften [1 per deelnemer, rood/blauw/groen] & post-its regelen
+ > check ruimte: A12.5: flip-over, beeldscherm, ..
+ > print sheets 'Tijdsplanning' & 'Let op'
+ > stopcontacten bij Service Point halen
+ > Monique: naambordjes ophalen
+ 
+14.30u:
+ > bekers water
+ > wc
+ > (badkamer)klokje
+ > telefoons uit
+ > stopcontacten aansluiten
+ > laptop klaarzetten
+ > beeldscherm koppelen
+ > sheets in presenter view
+   > zorg voor juiste puntgrootte & layout van presenter notes, zodat ze in 1 oogopslag leesbaar zijn
+ > leg geprinte sheets & materialen op mijn tafel
+ > deel materialen rond
+ > teken mood diagram op flip-over
+ > roos opplakken
+ > start browsers, shell, IntelliJ
+
+=== 
+
+werkvormen
+
+C8 *** carrousel - pair prg keuze:
+- random
+- lengte
+- leeftijd
+- nog nooit mee gewerkt
+- collega op project
+
+D1 ** luisteropdracht
+noteer welk onderwerp/concept je het coolste, vernieuwendste of verrasendst vindt.
+Ieder 1 ding; mag een klein detail zijn
+~> # keer aan herinneren tijdens presentatie!
+~> aan het eind vragen wat men opgeschreven heeft
+
+======== 
+
+cursussessie 1, nov 2014:
+
+Ahmed.Aziz@ordina.nl;Auke.Rozema@ordina.nl;Bas.Suverkropp@ordina.nl;Daniel.Rutten@ordina.nl;Dick.van.der.Louw@ordina.nl;Eric.Jan.Malotaux@ordina.nl;Harry.Bakker@ordina.nl;Johan.Vogelzang@ordina.nl;Juan.Perez.Miranda@ordina.nl;Koen.Olijve@ordina.nl;Robbert.van.der.Zon@ordina.nl;Ryan.Sewnarain@ordina.nl;Sylwester.Lesniak@ordina.nl;Thomas.Lodewijk@ordina.nl
+
+Ahmed Aziz
+Auke Rozema
+Bas Suverkropp
+Daniel Rutten
+Dick van der Louw
+Eric Jan Malotaux
+Harry Bakker
+Johan Vogelzang
+Juan Miranda Perez
+Koen Olijve
+Robbert van der Zon
+Ryan Sewnarain
+Sylwester Lesniak
+Thomas Lodewijk
+
+Ahmed
+Auke
+Bas
+Daniel
+Dick
+Eric Jan
+Harry
+Johan
+Juan
+Koen
+Robbert
+Ryan
+Sylwester
+Thomas
+
+==
+
+stemming
+
+1 (11x) HTML5 WebSockets
+2 (10x) JEE7 WebSockets
+3 (8x) SPDY & HTTP/2
+4 (5x) SSE & JAX-RS
+5a (3x) WebRTC
+5b (3x) Servlet 3.x
+- async programming
+- Comet
+- Atmosphere
+
+==
+
+tijden 1e avond:
+- voorstelrondje 5min
+- 16:20-16:50 inleiding & quickies
+- 16:50 'stickeren'
+- 17-17:30 ws theorie
+- eten werd 17.30-18u => 30min is genoeg
+- 18.15-19:20 1e lab
+- 19:20-19:40 recap & pop quiz
+- 19:40-19:50 koffie
+- 19:50-20:10 JEE7 theorie
+- 20:10-20:45 JEE7 lab
+- 20:45-21u pop quiz & mood diagram
+- 21-21:20u opruimen
+
+tijden 2e avond:
+- 16:00-16:10 binnendruppelen
+- 16:10-16:40 recap
+- 16:40-17:00 websockets in 't veld
+- 17:00-..    koffie
+- ..   -17:35 SPDY
+  17:35-17:50 SPDY lab
+- 17:50-18:35 eten
+- 18:35-19:00 HTTP/2
+  19:00-..    lab
+  ..   -19:55 quiz
+- 19:55-20:00 koffie
+- 20:00-20:16 SSE & JAX-RS
+  20:16-20:40 lab
+- 20:40-20:50 recap & eval
+  20:50-21:00 opruimen
+
+tijden 3e avond:
+- 16:00 binnendruppelen
+- 16:10-16:30 recap
+- 16:30-16:35-16:45 quickies / business value - prio
+  results: (vergelijkbaar aan 1e poll, m.u.v. async prg)
+  1 (10) async prg
+  1 (10) servlet 3.x+JAX-RS
+  3 (7)  webrtc
+  -4 (3)  Atmosphere-
+  X (0)  Comet
+- 16:45-17:15 async prg
+- 17:15-18:00 eten
+- 18:00-18:15 servlet 3.x
+  18:15-19:05 lab
+  19:05-19:10 nabespreken
+- 19:10-19:15 JAX-RS
+  19:15-19:45 lab
+- koffie?
+- 20:00-20:.. webrtc
+  ..-20:45 quiz
+- nabespreken:
+  20:45-20:47 recap
+  20:47-20:49 luisteropdr; results:
+    - Bas, Daniel, Robbert: WebRTC
+    - Robbert: ws
+    - EJ: SSE
+    - Thomas: JEE toepasbaarheid
+  20:49-20:51 toepasronde
+  20:51-20:57 D2 'flap' _persoonlijke_ doelstellingen:
+    - Harry gekozen obv titel; gehaald
+    - Bas: titel HTML5 misleidend
+    - Daniel: >1 oplossing; ja
+    - Robbert: auth, router; ws blijkt (te?) basic protocol
+    - Dick flashy; ja
+  20:57-21:00 eval forms
+
+opgemerkt:
+- NL-JUG mag slecht gelezen!
+
+== EOF

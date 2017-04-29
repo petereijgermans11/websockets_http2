@@ -1,0 +1,106 @@
+TODO
+
+last-minute ma/di:
+- update cookbook software URLs & in repo
+- paginanummers cookbook in sheets
+- update toc
+- pop quiz: zorg voor vraag voor *elk* tweetal
+
+==
+
+2e & 3e avond
+* begin met recap / eindig met recap+eval; maak aparte sheets hiervoor
+* extra ppt: wat is async prg
+* nieuwe tijdsplanning
+  - koffiepauze
+  - op tijd stoppen voor nabespreken/eval !!
+  - vraag expliciet (met onderwerpen) wie de 3e avond gaat komen
+* materialen opnieuw uitprinten
+
+======
+
+TODO bij evt. sessie 3
+
+ > lees HTTP/2 spec
+ > meer spul uit unRESTful Web Services with HTTP2 toevoegen, o.a. multiplexing & RESTful server push met onPush callback aan de client side!
+ > HTTP/2 Jetty+HAProxy lab
+ > 4 Tomcat websocket examples: 
+   http://localhost:8080/examples/websocket/index.xhtml
+   apache-tomcat-9.0.0.M4\webapps\examples\WEB-INF\classes\websocket
+ > https://github.com/bclozel/http2-experiments
+   Spring Boot + Jetty + mvn
+   https://2015.event.springone2gx.com/schedule/sessions/http_2_for_the_web_developer.html
+    (cert expired 29-mrt-2016!!)
+   https://www.youtube.com/watch?v=ssp1ve_A1to  
+ > Java9 codelab:
+// sync
+HttpResponse response = HttpRequest
+    .create(new URI("http://www.infoq.com"))
+    .body(noBody())
+    .GET().send();
+int responseCode = response.responseCode();
+String responseBody = response.body(asString());
+
+// async
+HttpRequest req = HttpRequest
+    .create(new URI("http://www.infoq.com"))
+    .body(noBody())
+    .GET();
+CompletableFuture<HttpResponse> aResp = req.sendAsync();
+Thread.sleep(10);
+if (!aResp.isDone()) {
+    aResp.cancel(true);
+    System.out.println("Failed to reply quickly...");
+    return;
+}
+HttpResponse response = aResp.get();
+
+==
+
+NICE TO HAVE (NOT!)
+
+materialen
+ > matrix voor de 3 avonden
+
+extra energizer
+ > maak een set vragen voor petje op/af
+
+onderwerpen
+ > web workers sheets+sample app toevoegen; zie C:\Users\Pretzel\Documents\Sync\My Documents\Tech info\refcards & howto's\WebWorkers.txt
+
+sheets
+ > meer diagrammen
+ > splits in ppts per onderwerp
+ > "3 bullets per sheet"
+ > "death by powerpoint"
+ > update plaatjes rechtsboven
+ > SPDY: noem ook QUIC  
+
+afwisselen met:
+- korte video (webinar/conference oid)
+- leg net behandelde sheets uit aan buurman
+- bespreek stelling met buurman
+
+labs workspace / cookbook
+ > meer *functionele* opdrachten, evt. in 1 artifact (Ordina brewery?)
+ > bouw noodzaak tot googlen in e/o voeg hrefs toe in javadoc
+ > houd code labs compileerbaar, zelfs als je via TODO's code wegstreept
+ > zijn applicaties interessant/helder genoeg?
+ > Coole toepassing: Ping/Pong-tijden d3.js graph; kan niet van willekeurig ws endpoint
+   want moet vanuit server komen! => eigen protocolletje om te vragen vanuit client
+ > simpele Atmosphere app
+
+==
+
+2 potentiele werkvormen
+
+C7 * mindmap
+bij recap mindmap laten maken door deelnemers
+~> eerst zelf voorbeeld laten zien
+~> daarna bespreken & koppelen aan sheets
+
+C10 * theoriesandwich: begin+eindig met probleem
+ => tussenstuk=theorie/impl==(mogelijke) oplossing
+ => vgl. Eelco focus op doel
+
+=== EOF

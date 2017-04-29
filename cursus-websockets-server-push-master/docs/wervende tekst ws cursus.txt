@@ -1,0 +1,37 @@
+HTML5, WebSockets & server push
+
+"The Web, asynchronous"
+
+Er is veel gebeurd sinds Tim Berners-Lee in 1989 HTTP en HTML voorstelde. "Het web" begon statisch, daarna gegenereerd, toen dynamisch, eventjes "2.0" en inmiddels asynchroon. Javascript is een "first class citizen" geworden, en HTML - altijd al een levende specificatie - is in versie 5 een waaier geworden met voor ieder wat wils. Deze cursus gaat in op diverse onderdelen ervan die onder de noemer "asynchroon" vallen. Er wordt stilgestaan bij de mate van ondersteuning door browsers & servers. Alle deze nieuwe technologieën worden tastbaar gemaakt met een demo, codevoorbeelden en hands-on lab, waarin we zowel met client als server code aan de gang gaan. Je zult zien dat je er al snel zelf mee aan de slag kunt!
+
+Wil je ook alles weten van WebSockets, Servlet 3.x, WebRTC, SSE, Comet, Atmosphere, SPDY en HTTP2? Geef je snel op!
+
+Duur: 3 avonden (16-21u)
+Ingepland op: dinsdag 11, 18 en 25 november 2014
+
+Locatie: Ordina Nieuwegein
+Docent(en): Hedzer Westra
+Vereiste voorkennis: basiskennis web technologie zoals javascript, HTTP en HTML(5). Basiskennis Java.
+Doelstelling: Na de cursus heb je:
+• kennis van concepten & terminologie m.b.t. de HTML5 onderdelen websockets, SSE en WebRTC
+• inzicht in het ontwikkelpad van server push technieken
+• praktische en direct inzetbare ervaring met "het asynchrone web" JEE6/JEE7-onderdelen
+• een (als cursusmateriaal aangeleverde) draaiende stack op diverse server side middleware, zoals Jetty, Tomcat, NodeJs en GlassFish
+• handvaten om in de (nabije) toekomst klanten te adviseren over gebruik van de behandelde technieken
+Organiserende unit: J-Technologies
+Contactpersoon: Monique van Rossum
+Kosten: -
+Beschikbaar voor: Iedereen
+Eigen laptop nodig: Ja
+Cursusmateriaal: Geleverd door docent
+Uren huiswerk per week: -
+
+Hoofdonderwerpen:
+• WebSockets
+• JEE7 & Servlet 3.0/3.1
+• WebRTC
+• SSE
+• Comet
+• Atmosphere
+• SPDY
+• HTTP2

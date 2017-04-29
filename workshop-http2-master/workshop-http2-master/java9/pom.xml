@@ -1,0 +1,155 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>nl.ordina.jtech.jdk9.http2</groupId>
+	<artifactId>http2-example</artifactId>
+	<version>1.0</version>
+
+	<properties>
+		<java.version>9</java.version>
+		<java.9.executable>C:/Progra~1/Java/jdk-9/bin/java.exe</java.9.executable>
+		<!--<java.logging.format>-Djava.util.logging.SimpleFormatter.format='%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s %2$s %5$s%6$s%n'</java.logging.format>-->
+
+		<java.logging.format>-Djava.util.logging.config.file=jul.properties</java.logging.format>
+        <!-- -Djava.net.HttpClient.log=errors,requests,headers,frames[:control:data:window:all..],content,ssl,trace -->
+		<java.logging.http2>-Djava.net.HttpClient.log=all</java.logging.http2>
+	</properties>
+	<profiles>
+		<profile>
+			<id>ResponseAsync</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.5.0</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<executable>${java.9.executable}</executable>
+							<arguments>
+								<argument>${java.logging.format}</argument>
+								<argument>${java.logging.http2}</argument>
+								<argument>-classpath</argument>
+								<classpath />
+								<argument>--add-modules</argument>
+								<argument>java.xml.bind,jdk.incubator.httpclient</argument>
+								<argument>nl.ordina.jtech.jdk9.http2.ResponseAsync</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>ResponseAsyncMulti</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.5.0</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<executable>${java.9.executable}</executable>
+							<arguments>
+								<argument>${java.logging.format}</argument>
+                                <argument>${java.logging.http2}</argument>
+								<argument>-classpath</argument>
+								<classpath />
+								<argument>--add-modules</argument>
+								<argument>java.xml.bind,jdk.incubator.httpclient</argument>
+								<argument>nl.ordina.jtech.jdk9.http2.ResponseAsyncMultiExample</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>CancelClient</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.5.0</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<executable>${java.9.executable}</executable>
+							<arguments>
+                                <argument>${java.logging.format}</argument>
+                                <argument>${java.logging.http2}</argument>
+								<argument>-classpath</argument>
+								<classpath />
+								<argument>--add-modules</argument>
+								<argument>java.xml.bind,jdk.incubator.httpclient</argument>
+								<argument>nl.ordina.jtech.jdk9.http2.CancelClientExample</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				 <artifactId>maven-toolchains-plugin</artifactId>
+				 <version>1.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>toolchain</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<toolchains>
+						<jdk>
+							<version>1.9</version>
+						</jdk>
+					</toolchains>
+				</configuration>
+			</plugin>
+			<!-- -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<verbose>true</verbose>
+					<fork>true</fork>
+					<source>9</source>
+					<target>1.9</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+        <!-- none -->
+    </dependencies>
+
+</project>

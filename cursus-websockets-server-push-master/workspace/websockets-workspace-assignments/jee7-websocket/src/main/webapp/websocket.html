@@ -1,0 +1,77 @@
+<html>
+	<head>
+	    <link href="css/bootstrap.css" rel="stylesheet"/>
+		<script type="text/javascript" src="javascript/jquery-2.0.3.min.js"></script>
+
+		<script type="text/javascript">
+			var socket;
+			var number = 1;
+			var intervalFunc;
+			
+			$(function() {
+				if (!window.WebSocket) {
+				  alert("WebSocket is not supported");
+				  return;
+				}
+				
+		        var contextRoot = window.location.pathname.split('/')[1]
+		        var wsUri = "ws://" + document.location.host + "/" + contextRoot + "/myWebSocketEndpoint/myCoolClientId";
+		        // ws://localhost:8080/jee7-showcase/myWebSocketEndpoint/myCoolClientId
+		        $("#wsuri").prop('value', wsUri);
+
+				$("#connectButton").on("click",function() {
+		            socket = new WebSocket($("#wsuri").prop('value'));
+					socket.onopen = function () {
+						$("#ws-response").prepend('CONNECTED<br/>');
+
+						intervalFunc = setInterval(function() {
+							var data = '{"int":' + number++ + '}';
+				            $("#ws-request").prepend(data + '<br/>');
+						    socket.send(data); // type String, Blob or ArrayBuffer
+						    var u8 = new Uint8Array(3); // or: new Uint8Array([8,6,7,5,3,0,9]);
+						    u8[0] = 0x30;
+						    u8[1] = 0x41;
+						    u8[2] = 0x51;
+						    socket.send(u8); // or u8.buffer? This seems to work..
+						}, $("#interval").prop('value'));
+					};
+					socket.onmessage = function (event) {
+						var response = event.data;
+						if (response instanceof ArrayBuffer || response instanceof Blob) {
+							$("#ws-response").prepend('got binary data<br/>');
+						}	
+						$("#ws-response").prepend(response + '<br/>');
+					};
+					socket.onerror = function (event) { 
+						var response = event.data;
+						$("#ws-response").prepend('<div style="color:red;">' + response + '</div><br/>');
+					};
+				});
+				$("#sendButton").on("click", function() {
+					var data = $("#textID").prop('value');
+		            socket.send(data);
+		            $("#ws-request").prepend('<b>' + data + '</b><br/>');
+				});
+				$("#stopIntervalButton").on("click", function() {
+					 clearInterval(intervalFunc);
+				});
+			});
+		</script>
+	</head>
+	<body>
+	    <form action="">
+	        <label for="wsuri">WebsocketUri:</label><input id="wsuri" type="text" size="50" maxlength="100"/><br/>
+	        <label for="interval">Send interval: (ms)</label><input id="interval" type="text" size="6" maxlength="6" value="2000"/><br/>
+	        <input id="connectButton" value="Connect" type="button" /><br/>
+			<br/>
+	        <input id="textID" name="message" value="Hello WebSocket!" type="text"/>
+	        <input id="sendButton" value="Send message" type="button"/>
+			<br/>
+	        <input id="stopIntervalButton" value="Stop interval" type="button"/>
+	    </form>
+	    
+		<label for="ws-request" style="font-weight:bold;">Requests:</label><div id="ws-request"/>
+		<br/>
+		<label for="ws-response" style="font-weight:bold;">Responses:</label><div id="ws-response"/>
+	</body>
+</html>
